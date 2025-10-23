@@ -2,21 +2,14 @@
 
 namespace Nexus;
 
-public class Nexus : INexus
+public class Nexus(IServiceProvider serviceProvider) : INexus
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public Nexus(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-
     public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken ct = default)
     {
         var requestType = request.GetType();
         var handlerType = typeof(ICommandHandler<,>).MakeGenericType(requestType, typeof(TResponse));
 
-        var handler = _serviceProvider.GetService(handlerType);
+        var handler = serviceProvider.GetService(handlerType);
 
         if (handler is null)
         {

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
+using Nexus.Extensions;
 using WarehouseInventorySystem.Midleware;
-using WIS.Application.Extensions;
+using WIS.Application;
 using WIS.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.RegisterCommandQueryHandlers();
+builder.Services.AddNexus(typeof(AssemblyIdentifier).Assembly);
+
 builder.Services.AddInfrastructure(builder.Configuration);
 
 
@@ -18,7 +20,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-;
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
