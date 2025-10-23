@@ -8,15 +8,8 @@ using WIS.Application.Queries;
 namespace WarehouseInventorySystem.Controllers;
 
 [Route("api/warehouse")]
-public class WareHouseController:ControllerBase
+public class WareHouseController(INexus nexus) : ControllerBase
 {
-    private readonly INexus _nexus;
-
-    public WareHouseController(INexus nexus)
-    {
-        _nexus = nexus;
-    }
-    
     [HttpPost("register-incoming-stock")]
     [ProducesResponseType(200)]
     public async Task<IActionResult> RegisterIncomingStock([FromBody] RegisterIncomingStock registerIncomingStock, CancellationToken cancellationToken)
@@ -27,7 +20,7 @@ public class WareHouseController:ControllerBase
             Quantity = registerIncomingStock.Quantity
         };
         
-        var result = await _nexus.SendAsync(command, cancellationToken);
+        var result = await nexus.SendAsync(command, cancellationToken);
         return Ok(result);
     }
     
@@ -41,7 +34,7 @@ public class WareHouseController:ControllerBase
             Quantity = registerOutgoingStock.Quantity
         };
         
-        var result = await _nexus.SendAsync(command, cancellationToken);
+        var result = await nexus.SendAsync(command, cancellationToken);
         return Ok();
     }
     
@@ -50,7 +43,7 @@ public class WareHouseController:ControllerBase
     public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
     {
         var query = new GetAllInventoryItems();
-        var result = await _nexus.SendAsync(query, cancellationToken);
+        var result = await nexus.SendAsync(query, cancellationToken);
         return Ok(result);
     }
     
@@ -59,7 +52,7 @@ public class WareHouseController:ControllerBase
     public async Task<IActionResult> GetInventoryItemDetails(string code, CancellationToken cancellationToken)
     {
         var query = new GetInventoryDetailsQuery { Code = code };
-        var result = await _nexus.SendAsync(query, cancellationToken);
+        var result = await nexus.SendAsync(query, cancellationToken);
         return Ok(result);
     }
 }
