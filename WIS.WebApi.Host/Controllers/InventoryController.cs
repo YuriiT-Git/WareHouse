@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Nexus;
+﻿using MedistR.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using WIS.Application.Commands;
-using WIS.Application.Queries;
 
 namespace WarehouseInventorySystem.Controllers;
 
 [Route("api/inventory")]
 public class InventoryController : ControllerBase
 {
-    private readonly INexus _nexus;
+    private readonly IMedistR _medistR;
 
-    public InventoryController(INexus nexus)
+    public InventoryController(IMedistR medistR)
     {
-        _nexus = nexus;
+        _medistR = medistR;
     }
 
     [HttpPost("create")]
@@ -21,7 +20,7 @@ public class InventoryController : ControllerBase
         [FromBody] CreateInventoryItemCommand command,
         CancellationToken cancellationToken)
     {
-        var result = await _nexus.SendAsync(command, cancellationToken);
+        var result = await _medistR.SendAsync(command, cancellationToken);
         return Ok(result);
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace Nexus.Abstractions;
+namespace MedistR.Abstractions;
 
 public interface IRequest<TResponse>
 {

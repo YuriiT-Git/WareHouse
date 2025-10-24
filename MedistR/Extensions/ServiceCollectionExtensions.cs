@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
+using MedistR.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using Nexus.Abstractions;
 
-namespace Nexus.Extensions;
+namespace MedistR.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddNexus(this IServiceCollection services, params Assembly[] assemblies)
+    public static IServiceCollection AddMedistR(this IServiceCollection services, params Assembly[] assemblies)
     {
         var handlerInterfaces = new[]
         {
@@ -31,7 +31,7 @@ public static class ServiceCollectionExtensions
             }
         }
 
-        services.AddScoped<INexus, Nexus>();
+        services.AddScoped<IMedistR, MedistR>();
         return services;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Nexus.Abstractions;
+﻿using MedistR.Abstractions;
 
 namespace WIS.Application.Commands;
 

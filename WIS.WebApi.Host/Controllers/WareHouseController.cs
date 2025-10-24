@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Nexus;
+﻿using MedistR.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using WarehouseInventorySystem.Models;
 using WIS.Application.Commands;
 using WIS.Application.DTO;
@@ -8,7 +8,7 @@ using WIS.Application.Queries;
 namespace WarehouseInventorySystem.Controllers;
 
 [Route("api/warehouse")]
-public class WareHouseController(INexus nexus) : ControllerBase
+public class WareHouseController(IMedistR medistR) : ControllerBase
 {
     [HttpPost("register-incoming-stock")]
     [ProducesResponseType(200)]
@@ -20,7 +20,7 @@ public class WareHouseController(INexus nexus) : ControllerBase
             Quantity = registerIncomingStock.Quantity
         };
         
-        var result = await nexus.SendAsync(command, cancellationToken);
+        var result = await medistR.SendAsync(command, cancellationToken);
         return Ok(result);
     }
     
@@ -34,7 +34,7 @@ public class WareHouseController(INexus nexus) : ControllerBase
             Quantity = registerOutgoingStock.Quantity
         };
         
-        var result = await nexus.SendAsync(command, cancellationToken);
+        var result = await medistR.SendAsync(command, cancellationToken);
         return Ok();
     }
     
@@ -43,7 +43,7 @@ public class WareHouseController(INexus nexus) : ControllerBase
     public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
     {
         var query = new GetAllInventoryItems();
-        var result = await nexus.SendAsync(query, cancellationToken);
+        var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }
     
@@ -52,7 +52,7 @@ public class WareHouseController(INexus nexus) : ControllerBase
     public async Task<IActionResult> GetInventoryItemDetails(string code, CancellationToken cancellationToken)
     {
         var query = new GetInventoryDetailsQuery { Code = code };
-        var result = await nexus.SendAsync(query, cancellationToken);
+        var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }
 }

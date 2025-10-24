@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Domain", "WIS.Domain\WI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Application", "WIS.Application\WIS.Application.csproj", "{E41A000F-564A-4B71-A7C6-E9ABA0B94012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus", "Nexus\Nexus.csproj", "{B0359F58-8EDE-4B3C-A0B8-6A017EC0F61F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedistR", "MedistR\MedistR.csproj", "{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +32,9 @@ Global
 		{E41A000F-564A-4B71-A7C6-E9ABA0B94012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E41A000F-564A-4B71-A7C6-E9ABA0B94012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E41A000F-564A-4B71-A7C6-E9ABA0B94012}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0359F58-8EDE-4B3C-A0B8-6A017EC0F61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0359F58-8EDE-4B3C-A0B8-6A017EC0F61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0359F58-8EDE-4B3C-A0B8-6A017EC0F61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0359F58-8EDE-4B3C-A0B8-6A017EC0F61F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

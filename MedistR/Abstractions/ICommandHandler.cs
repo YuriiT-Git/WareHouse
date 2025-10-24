@@ -1,4 +1,4 @@
-﻿namespace Nexus.Abstractions;
+﻿namespace MedistR.Abstractions;
 
 public interface ICommandHandler<in TCommand, TResult> where TCommand : IRequest<TResult>
 {

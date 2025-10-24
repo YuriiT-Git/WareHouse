@@ -1,8 +1,8 @@
-﻿using Nexus.Abstractions;
+﻿using MedistR.Abstractions;
 
-namespace Nexus;
+namespace MedistR;
 
-public class Nexus(IServiceProvider serviceProvider) : INexus
+public class MedistR(IServiceProvider serviceProvider) : IMedistR
 {
     public async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken ct = default)
     {

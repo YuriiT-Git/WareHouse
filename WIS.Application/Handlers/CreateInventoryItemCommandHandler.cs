@@ -1,4 +1,4 @@
-﻿using Nexus.Abstractions;
+﻿using MedistR.Abstractions;
 using WIS.Application.Commands;
 using WIS.Application.Common.Abstractions;
 using WIS.Domain.Entities;

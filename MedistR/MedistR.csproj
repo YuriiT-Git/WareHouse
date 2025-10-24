@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MedistR\MedistR.csproj" />
-      <ProjectReference Include="..\WIS.Domain\WIS.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
         <HintPath>..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\8.0.17\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       </Reference>

@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Nexus\Nexus.csproj" />
       <ProjectReference Include="..\WIS.Application\WIS.Application.csproj" />
       <ProjectReference Include="..\WIS.Infrastructure\WIS.Infrastructure.csproj" />
     </ItemGroup>

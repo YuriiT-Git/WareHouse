@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Nexus.Extensions;
+using MedistR.Extensions;
 using WarehouseInventorySystem.Midleware;
 using WIS.Application;
 using WIS.Infrastructure.Extensions;
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddNexus(typeof(AssemblyIdentifier).Assembly);
+builder.Services.AddMedistR(typeof(AssemblyIdentifier).Assembly);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
