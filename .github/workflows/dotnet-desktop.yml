@@ -1,28 +1,24 @@
-name: .NET Build & Test
+name: .NET Build
 
 on:
-  push:
-    branches: [ main, phase-* ]
-  pull_request:
-    branches: [ main, phase-* ]
+
+  pull_request
 
 jobs:
   build:
     runs-on: windows-latest
 
-    defaults:
-      run:
-        working-directory: 'WarehouseInventorySystem'
-
-    env:
-      Solution_Name: 'WIS.sln'
-      Configuration: 'Release'
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+
+    - name: Find solution file dynamically
+      id: find_solution
+      shell: bash
+      run: |
+        SOL=$(find . -maxdepth 3 -name "*.sln" | head -n 1)
+        echo "solution=$SOL" >> $GITHUB_OUTPUT
+        echo "Found solution: $SOL"
 
     - name: Setup .NET 8.0 SDK
       uses: actions/setup-dotnet@v4
@@ -30,27 +26,38 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore $env:Solution_Name
+      run: dotnet restore "${{ steps.find_solution.outputs.solution }}"
 
-    - name: Build solution
-      run: dotnet build $env:Solution_Name --configuration $env:Configuration --no-restore
+    - name: Build
+      run: dotnet build "${{ steps.find_solution.outputs.solution }}" --configuration Release --no-restore
 
-    - name: Run tests (if any)
+    - name: Run tests (if exist)
+      shell: bash
       run: |
-        if (Test-Path "WIS.Tests") {
-          dotnet test WIS.Tests/WIS.Tests.csproj --configuration $env:Configuration --no-build --verbosity normal
-        } else {
-          Write-Host "No test project found, skipping tests."
-        }
+        TESTS=$(find . -type f -name "*.csproj" | grep -i "test" || true)
+        if [ -n "$TESTS" ]; then
+          for t in $TESTS; do
+            echo "Running tests in $t"
+            dotnet test "$t" --no-build --configuration Release
+          done
+        else
+          echo "No test projects found, skipping."
+        fi
 
     - name: Publish Web API
+      shell: bash
       run: |
-        dotnet publish WIS.WebApi.Host/WIS.WebApi.Host.csproj `
-          --configuration $env:Configuration `
-          --output ./publish
+        API=$(find . -type f -name "WIS.WebApi.Host.csproj" | head -n 1)
+        if [ -n "$API" ]; then
+          echo "Publishing $API"
+          dotnet publish "$API" --configuration Release --output ./publish
+        else
+          echo "WIS.WebApi.Host.csproj not found!"
+          exit 1
+        fi
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: WIS-publish
-        path: WarehouseInventorySystem/publish
+        name: publish
+        path: publish
