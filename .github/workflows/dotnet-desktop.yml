@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: windows-latest
 
+    defaults:
+      run:
+        working-directory: 'WarehouseInventorySystem'
+
     env:
       Solution_Name: 'WIS.sln'
       Configuration: 'Release'
@@ -26,15 +30,12 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      working-directory: 'Warehouse Inventory System'
       run: dotnet restore $env:Solution_Name
 
     - name: Build solution
-      working-directory: 'Warehouse Inventory System'
       run: dotnet build $env:Solution_Name --configuration $env:Configuration --no-restore
 
-    - name: Run tests (if present)
-      working-directory: 'Warehouse Inventory System'
+    - name: Run tests (if any)
       run: |
         if (Test-Path "WIS.Tests") {
           dotnet test WIS.Tests/WIS.Tests.csproj --configuration $env:Configuration --no-build --verbosity normal
@@ -43,7 +44,6 @@ jobs:
         }
 
     - name: Publish Web API
-      working-directory: 'Warehouse Inventory System'
       run: |
         dotnet publish WIS.WebApi.Host/WIS.WebApi.Host.csproj `
           --configuration $env:Configuration `
@@ -53,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: WIS-publish
-        path: 'Warehouse Inventory System/publish'
+        path: WarehouseInventorySystem/publish
