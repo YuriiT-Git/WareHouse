@@ -32,7 +32,7 @@ public static class InventoryItemExtensions
             inventoryItemModel.Model,
             inventoryItemModel.Color,
             inventoryItemModel.Size,
-            inventoryItemModel.InventoryStock.ToDomain());
+            inventoryItemModel.InventoryStock!.ToDomain());
     }
 
     public static InventoryStockModel ToDbModel(this InventoryStock inventoryStock)
@@ -69,7 +69,7 @@ public static class InventoryItemExtensions
             Color = inventoryItem.Color,
             ProductType = inventoryItem.ProductType,
             Size = inventoryItem.Size,
-            Count = inventoryItem.InventoryStock.Quantity
+            Count = inventoryItem.InventoryStock!.Quantity
         };
     }
 }

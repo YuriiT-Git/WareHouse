@@ -2,6 +2,6 @@
 
 public class RegisterIncomingStock
 {
-    public string Code { get; set; }
-    public int Quantity { get; set; }
+    public required string Code { get; set; }
+    public required int Quantity { get; set; }
 }

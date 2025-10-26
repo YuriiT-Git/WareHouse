@@ -9,16 +9,8 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
         var requestType = request.GetType();
         var handlerType = typeof(IRequestHandler<>).MakeGenericType(requestType);
 
-        var handler = serviceProvider.GetService(handlerType);
-
-        if (handler is null)
-        {
-            throw new InvalidOperationException($"Handler not found for {requestType}");
-        }
-
-        var method = handlerType.GetMethod("Handle");
-        var result = method.Invoke(handler, new object[] { request, ct });
-
+        var result = GetResult(request, ct, handlerType, requestType);
+        
         if (result is Task task)
         {
             await task;
@@ -30,6 +22,14 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
         var requestType = request.GetType();
         var handlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, typeof(TResponse));
 
+        var result = GetResult(request, ct, handlerType, requestType);
+        
+        return await (Task<TResponse>)result;
+    }
+
+    private object GetResult(object request, CancellationToken ct, Type handlerType,
+        Type requestType)
+    {
         var handler = serviceProvider.GetService(handlerType);
 
         if (handler is null)
@@ -38,6 +38,19 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
         }
 
         var method = handlerType.GetMethod("Handle");
-        return await (Task<TResponse>)method.Invoke(handler, [request, ct]);
+
+        if (method is null)
+        {
+            throw new InvalidOperationException($"Handler doesn't implement Handle method");
+        }
+
+        var result = method.Invoke(handler, [request, ct]);
+        
+        if (result is null)
+        {
+            throw new InvalidOperationException($"Handler '{method.Name}' returned null.");
+        }
+        
+        return result;
     }
 }

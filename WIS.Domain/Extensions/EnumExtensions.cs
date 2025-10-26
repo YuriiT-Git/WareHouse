@@ -10,7 +10,7 @@ public static class EnumExtensions
         var type = productType.GetType();
         var member = type.GetMember(productType.ToString()).FirstOrDefault();
 
-        var productTypeCode = member
+        var productTypeCode = member?
             .GetCustomAttribute<DescriptionAttribute>(false)?.Description;
         
         return productTypeCode ?? "";

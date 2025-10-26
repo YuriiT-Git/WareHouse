@@ -2,6 +2,7 @@
 using WIS.Application.Common.Abstractions;
 using WIS.Application.DTO;
 using WIS.Domain.Entities;
+using WIS.Domain.Exceptions;
 using WIS.Infrastructure.Extensions;
 
 namespace WIS.Infrastructure.Repositories;
@@ -10,9 +11,17 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
 {
     public async Task AddInventoryItemAsync(InventoryItem item, CancellationToken cancellationToken)
     {
-        var entity = item.ToDbModel();
-        await dbContext.InventoryItems.AddAsync(entity, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        
+        try
+        {
+            var entity = item.ToDbModel();
+            await dbContext.InventoryItems.AddAsync(entity, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException ex) when (ex.Message.Contains("duplicate"))
+        {
+            throw new DuplicateInventoryItemException(item.SkuNumber);
+        }
     }
 
     public async Task<InventoryItem> GetInventoryItemAsync(string code, CancellationToken cancellationToken)
@@ -23,8 +32,10 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-        //TODO: add verifications and handle exceptions
-
+        if (dbEntity is null)
+        {
+            throw new InventoryNotFoundException(code);
+        }
 
         var inventoryEntity = dbEntity.ToDomain();
         return inventoryEntity;
@@ -38,7 +49,10 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-        //TODO: add verifications and handle exceptions
+        if (dbEntity is null)
+        {
+            throw new InventoryNotFoundException(code);
+        }
 
         return dbEntity.ToDto();
     }
@@ -59,13 +73,19 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
 
     public async Task UpdateInventoryStockDataAsync(InventoryItem inventoryItem, CancellationToken cancellationToken)
     {
-        var dbEntity = dbContext
+        var dbEntity = await dbContext
             .InventoryItems
             .Include(x => x.InventoryStock)
-            .FirstOrDefault(x => x.Code == inventoryItem.SkuNumber);
+            .FirstOrDefaultAsync(x => x.Code == inventoryItem.SkuNumber, cancellationToken);
 
-        dbEntity.InventoryStock = inventoryItem.InventoryStock.ToUpdateDbModel(dbEntity.InventoryStock);
+        if (dbEntity is null)
+        {
+            throw new InventoryNotFoundException(inventoryItem.SkuNumber);
+        }
+        
+        dbEntity.InventoryStock = inventoryItem.InventoryStock.ToUpdateDbModel(dbEntity.InventoryStock!);
 
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }
+
