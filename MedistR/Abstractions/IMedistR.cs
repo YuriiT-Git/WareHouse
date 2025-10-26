@@ -2,5 +2,8 @@
 
 public interface IMedistR
 {
-    Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken ct = default);
+    Task SendAsync<TRequest>(IRequest<TRequest> request, CancellationToken ct = default);
+
+    Task<TResponse> SendAsync<TRequest, TResponse>(IRequest<TRequest, TResponse> request,
+        CancellationToken ct = default);
 }

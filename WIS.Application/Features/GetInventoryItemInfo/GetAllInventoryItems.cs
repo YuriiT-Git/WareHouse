@@ -1,8 +1,8 @@
 ﻿using MedistR.Abstractions;
 using WIS.Application.DTO;
 
-namespace WIS.Application.Queries;
+namespace WIS.Application.Features.GetInventoryItemInfo;
 
-public class GetAllInventoryItems: ICommand<IReadOnlyCollection<InventoryItemInfoDto>>
+public class GetAllInventoryItems: IRequest<GetAllInventoryItems, IReadOnlyCollection<InventoryItemInfoDto>>
 {
 }

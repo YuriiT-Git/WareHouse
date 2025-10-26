@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
         var handlerInterfaces = new[]
         {
             typeof(ICommandHandler<,>),
+            typeof(ICommandHandler<>)
         };
 
         foreach (var assembly in assemblies)

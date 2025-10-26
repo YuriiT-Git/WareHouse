@@ -1,6 +1,6 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using WIS.Application.Commands;
+using WIS.Application.Features.CreateInventoryItem;
 
 namespace WarehouseInventorySystem.Controllers;
 

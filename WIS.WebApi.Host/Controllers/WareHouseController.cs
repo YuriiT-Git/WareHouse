@@ -1,9 +1,10 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseInventorySystem.Models;
-using WIS.Application.Commands;
 using WIS.Application.DTO;
-using WIS.Application.Queries;
+using WIS.Application.Features.GetInventoryItemInfo;
+using WIS.Application.Features.ReceiveInventoryItem;
+using WIS.Application.Features.ShipInventoryItem;
 
 namespace WarehouseInventorySystem.Controllers;
 
@@ -20,8 +21,8 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
             Quantity = registerIncomingStock.Quantity
         };
         
-        var result = await medistR.SendAsync(command, cancellationToken);
-        return Ok(result);
+        await medistR.SendAsync(command, cancellationToken);
+        return Ok();
     }
     
     [HttpPost("register-outgoing-stock")]
@@ -34,7 +35,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
             Quantity = registerOutgoingStock.Quantity
         };
         
-        var result = await medistR.SendAsync(command, cancellationToken);
+        await medistR.SendAsync(command, cancellationToken);
         return Ok();
     }
     

@@ -3,9 +3,9 @@
 
 using MedistR.Abstractions;
 
-namespace WIS.Application.Commands;
+namespace WIS.Application.Features.CreateInventoryItem;
 
-public class CreateInventoryItemCommand : ICommand<string>
+public class CreateInventoryItemCommand :  IRequest<CreateInventoryItemCommand, string>
 {
     public required string ProductType { get; set; }
     public required string Brand { get; set; }

@@ -1,9 +1,8 @@
 ﻿using MedistR.Abstractions;
-using WIS.Application.Commands;
 using WIS.Application.Common.Abstractions;
 using WIS.Domain.Entities;
 
-namespace WIS.Application.Handlers;
+namespace WIS.Application.Features.CreateInventoryItem;
 
 public class CreateInventoryItemCommandHandler(IInventoryItemRepository inventoryItemRepository)
     : ICommandHandler<CreateInventoryItemCommand, string>

@@ -1,7 +1,12 @@
 ﻿
 namespace MedistR.Abstractions;
 
-public interface IRequest<TResponse>
+public interface IRequest<TRequest>
+{
+    
+}
+
+public interface IRequest<TRequest, TResponse>
 {
     
 }
