@@ -15,7 +15,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     [ProducesResponseType(200)]
     public async Task<IActionResult> RegisterIncomingStock([FromBody] RegisterIncomingStock registerIncomingStock, CancellationToken cancellationToken)
     {
-        var command = new RegisterIncomingStockCommand
+        var command = new RegisterIncomingStockRequest
         {
             Code = registerIncomingStock.Code,
             Quantity = registerIncomingStock.Quantity
@@ -29,7 +29,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     public async Task<IActionResult> RegisterOutgoingStock([FromBody] RegisterOutgoingStockModel registerOutgoingStock, CancellationToken cancellationToken)
     {
         
-        var command = new RegisterOutgoingStockCommand
+        var command = new RegisterOutgoingStockRequest
         {
             Code = registerOutgoingStock.Code,
             Quantity = registerOutgoingStock.Quantity
@@ -43,7 +43,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     [ProducesResponseType(typeof(List<InventoryItemInfoDto>), 200)]
     public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
     {
-        var query = new GetAllInventoryItems();
+        var query = new GetAllInventoryItemsRequest();
         var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }
@@ -52,7 +52,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     [ProducesResponseType(typeof(InventoryItemInfoDto), 200)]
     public async Task<IActionResult> GetInventoryItemDetails(string code, CancellationToken cancellationToken)
     {
-        var query = new GetInventoryDetailsQuery { Code = code };
+        var query = new GetInventoryDetailsRequest { Code = code };
         var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }

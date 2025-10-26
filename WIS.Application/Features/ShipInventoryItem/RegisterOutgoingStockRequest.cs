@@ -2,7 +2,7 @@
 
 namespace WIS.Application.Features.ShipInventoryItem;
 
-public class RegisterOutgoingStockCommand: IRequest<RegisterOutgoingStockCommand>
+public class RegisterOutgoingStockRequest: IRequest<RegisterOutgoingStockRequest>
 {
     public required string Code { get; init; }
     public required int Quantity { get; init; }

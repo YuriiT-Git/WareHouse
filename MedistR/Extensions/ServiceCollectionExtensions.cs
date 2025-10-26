@@ -10,8 +10,8 @@ public static class ServiceCollectionExtensions
     {
         var handlerInterfaces = new[]
         {
-            typeof(ICommandHandler<,>),
-            typeof(ICommandHandler<>)
+            typeof(IRequestHandler<,>),
+            typeof(IRequestHandler<>)
         };
 
         foreach (var assembly in assemblies)

@@ -7,7 +7,7 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
     public async Task SendAsync<TRequest>(IRequest<TRequest> request, CancellationToken ct = default)
     {
         var requestType = request.GetType();
-        var handlerType = typeof(ICommandHandler<>).MakeGenericType(requestType);
+        var handlerType = typeof(IRequestHandler<>).MakeGenericType(requestType);
 
         var handler = serviceProvider.GetService(handlerType);
 
@@ -28,7 +28,7 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
     public async Task<TResponse> SendAsync<TRequest, TResponse>(IRequest<TRequest, TResponse> request, CancellationToken ct = default)
     {
         var requestType = request.GetType();
-        var handlerType = typeof(ICommandHandler<,>).MakeGenericType(requestType, typeof(TResponse));
+        var handlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, typeof(TResponse));
 
         var handler = serviceProvider.GetService(handlerType);
 

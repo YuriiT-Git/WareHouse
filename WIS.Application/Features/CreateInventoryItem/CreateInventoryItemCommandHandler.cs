@@ -5,7 +5,7 @@ using WIS.Domain.Entities;
 namespace WIS.Application.Features.CreateInventoryItem;
 
 public class CreateInventoryItemCommandHandler(IInventoryItemRepository inventoryItemRepository)
-    : ICommandHandler<CreateInventoryItemCommand, string>
+    : IRequestHandler<CreateInventoryItemCommand, string>
 {
     public async Task<string> Handle(CreateInventoryItemCommand command, CancellationToken cancellationToken)
     {

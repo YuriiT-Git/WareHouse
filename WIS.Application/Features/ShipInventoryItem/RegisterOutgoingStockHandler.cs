@@ -3,10 +3,10 @@ using WIS.Application.Common.Abstractions;
 
 namespace WIS.Application.Features.ShipInventoryItem;
 
-public class RegisterOutgoingStockCommandHandler(IInventoryItemRepository repository)
-    : ICommandHandler<RegisterOutgoingStockCommand>
+public class RegisterOutgoingStockHandler(IInventoryItemRepository repository)
+    : IRequestHandler<RegisterOutgoingStockRequest>
 {
-    public async Task Handle(RegisterOutgoingStockCommand command, CancellationToken cancellationToken)
+    public async Task Handle(RegisterOutgoingStockRequest command, CancellationToken cancellationToken)
     {
         //TODO: Hand;e exceptions
         var inventoryItem = await repository.GetInventoryItemAsync(command.Code, cancellationToken);

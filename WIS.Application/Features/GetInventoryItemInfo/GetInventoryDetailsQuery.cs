@@ -3,7 +3,7 @@ using WIS.Application.DTO;
 
 namespace WIS.Application.Features.GetInventoryItemInfo;
 
-public class GetInventoryDetailsQuery: IRequest<GetInventoryDetailsQuery, InventoryItemInfoDto>
+public class GetInventoryDetailsRequest: IRequest<GetInventoryDetailsRequest, InventoryItemInfoDto>
 {
     public string Code { get; init; }
 }

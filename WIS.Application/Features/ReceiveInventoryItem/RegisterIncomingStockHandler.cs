@@ -3,11 +3,11 @@ using WIS.Application.Common.Abstractions;
 
 namespace WIS.Application.Features.ReceiveInventoryItem;
 
-public class RegisterIncomingStockCommandHandler(
+public class RegisterIncomingStockHandler(
     IInventoryItemRepository inventoryItemRepository)
-    : ICommandHandler<RegisterIncomingStockCommand>
+    : IRequestHandler<RegisterIncomingStockRequest>
 {
-    public async Task Handle(RegisterIncomingStockCommand command, CancellationToken cancellationToken)
+    public async Task Handle(RegisterIncomingStockRequest command, CancellationToken cancellationToken)
     {
         //TODO: Handle exceptions
         
