@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WIS.Application.Common.Abstractions;
@@ -18,9 +17,9 @@ public static class ServiceCollectionExtensions
         return services;
     }
     
-    public static void ApplyMigrations(this WebApplication app)
+    public static void ApplyMigrations(this IServiceProvider serviceProvider)
     {
-        using var scope = app.Services.CreateScope();
+        using var scope = serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<WareHouseDbContext>();
             
         if(context.Database.GetPendingMigrations().Any())

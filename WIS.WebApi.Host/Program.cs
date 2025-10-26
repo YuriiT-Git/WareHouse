@@ -40,7 +40,7 @@ app.MapControllers();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 if (app.Environment.IsDevelopment())
 {
-    app.ApplyMigrations();
+    app.Services.ApplyMigrations();
 }
 
 app.Run();
