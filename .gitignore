@@ -133,3 +133,4 @@ $RECYCLE.BIN/
 _NCrunch*
 
 .idea*
+.github/workflows/dotnet-desktop.yml
