@@ -26,14 +26,31 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
+      working-directory: 'Warehouse Inventory System'
       run: dotnet restore $env:Solution_Name
 
     - name: Build solution
+      working-directory: 'Warehouse Inventory System'
       run: dotnet build $env:Solution_Name --configuration $env:Configuration --no-restore
 
     - name: Run tests (if present)
+      working-directory: 'Warehouse Inventory System'
       run: |
         if (Test-Path "WIS.Tests") {
           dotnet test WIS.Tests/WIS.Tests.csproj --configuration $env:Configuration --no-build --verbosity normal
         } else {
-          Write-Host "No test project f
+          Write-Host "No test project found, skipping tests."
+        }
+
+    - name: Publish Web API
+      working-directory: 'Warehouse Inventory System'
+      run: |
+        dotnet publish WIS.WebApi.Host/WIS.WebApi.Host.csproj `
+          --configuration $env:Configuration `
+          --output ./publish
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WIS-publish
+        path: 'Warehouse Inventory System/publish'
