@@ -58,13 +58,11 @@ public class InventoryItem
     {
         if (!Enum.TryParse<ProductType>(productTypeStr, out var productType))
         {
-            //TODO: Rework to domain exceptions
             throw new InvalidOperationException(nameof(productTypeStr));
         }
 
         if (!Enum.TryParse<ItemSize>(sizeStr, out var size))
         {
-            //TODO: Rework to domain exceptions
             throw new InvalidOperationException(nameof(sizeStr));
         }
 
