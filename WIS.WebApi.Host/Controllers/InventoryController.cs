@@ -16,7 +16,7 @@ public class InventoryController : ControllerBase
 
     [HttpPost("create")]
     [ProducesResponseType(typeof(string), 200)]
-    public async Task<IActionResult> CreateInventoryItemCommand(
+    public async Task<IActionResult> CreateInventoryItem(
         [FromBody] CreateInventoryItemCommand command,
         CancellationToken cancellationToken)
     {

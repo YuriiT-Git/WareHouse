@@ -40,7 +40,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     }
     
     [HttpGet("all")]
-    [ProducesResponseType(typeof(List<InventoryItemInfoDto>), 200)]
+    [ProducesResponseType(typeof(List<InventoryItemDto>), 200)]
     public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
     {
         var query = new GetAllInventoryItemsRequest();
@@ -49,7 +49,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     }
     
     [HttpGet("details/{code}")]
-    [ProducesResponseType(typeof(InventoryItemInfoDto), 200)]
+    [ProducesResponseType(typeof(InventoryItemDto), 200)]
     public async Task<IActionResult> GetInventoryItemDetails(string code, CancellationToken cancellationToken)
     {
         var query = new GetInventoryDetailsRequest { Code = code };

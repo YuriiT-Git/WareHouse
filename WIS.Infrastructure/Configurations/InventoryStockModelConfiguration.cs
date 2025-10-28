@@ -8,6 +8,7 @@ public class InventoryStockModelConfiguration : IEntityTypeConfiguration<Invento
 {
     public void Configure(EntityTypeBuilder<InventoryStockModel> builder)
     {
+        builder.ToTable("InventoryStocks"); 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Quantity)
             .IsRequired()

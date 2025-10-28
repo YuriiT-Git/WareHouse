@@ -16,7 +16,7 @@ public class CreateInventoryItemCommandHandler(IInventoryItemRepository inventor
             command.Color,
             command.Size);
         
-        await inventoryItemRepository.AddInventoryItemAsync(inventoryEntity, cancellationToken);
+        await inventoryItemRepository.AddAsync(inventoryEntity, cancellationToken);
         return inventoryEntity.SkuNumber;
     }
 }

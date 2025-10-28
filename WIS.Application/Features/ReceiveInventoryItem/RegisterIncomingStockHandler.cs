@@ -13,9 +13,9 @@ public class RegisterIncomingStockHandler(
 {
     public async Task Handle(RegisterIncomingStockRequest command, CancellationToken cancellationToken)
     {
-        var inventoryItem = await inventoryItemRepository.GetInventoryItemAsync(command.Code, cancellationToken);
+        var inventoryItem = await inventoryItemRepository.GeAsync(command.Code, cancellationToken);
         inventoryItem.InventoryStock.RegisterIncoming(command.Quantity);
-        await inventoryItemRepository.UpdateInventoryStockDataAsync(inventoryItem, cancellationToken);
+        await inventoryItemRepository.UpdateStockDataAsync(inventoryItem, cancellationToken);
         await eventPublisher.PublishAsync(inventoryItem.ToStockUpdatedEvent(), cancellationToken);
     }
 }

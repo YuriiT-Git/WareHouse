@@ -5,7 +5,7 @@ using MedistR.Abstractions;
 
 namespace WIS.Application.Features.CreateInventoryItem;
 
-public class CreateInventoryItemCommand :  IRequest<CreateInventoryItemCommand, string>
+public class CreateInventoryItemCommand :  IRequest<string>
 {
     public required string ProductType { get; set; }
     public required string Brand { get; set; }
