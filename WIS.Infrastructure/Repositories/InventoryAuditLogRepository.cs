@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.Common.Abstractions;
 using WIS.Domain.Events;
+using WIS.Infrastructure.Entities;
 using WIS.Infrastructure.Extensions;
 
 namespace WIS.Infrastructure.Repositories;
@@ -15,10 +16,12 @@ public class InventoryAuditLogRepository(WareHouseDbContext dbContext)
         await dbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<StockUpdatedEvent[]> GetAuditLogAsync(string code, CancellationToken ct)
+    public async Task<StockUpdatedEvent[]> GetAsync(string code, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(code);
-        var result = await dbContext.InventoryAuditLog.Where(x=>x.Code == code)
+        var result = await dbContext
+            .Set<InventoryAuditLogDataModel>()
+            .Where(x=>x.Code == code)
             .OrderBy(x=>x.UpdatedAt)
             .Select(x=>x.ToAuditData())
             .ToArrayAsync(ct);
@@ -27,10 +30,11 @@ public class InventoryAuditLogRepository(WareHouseDbContext dbContext)
 
     public async Task<StockUpdatedEvent[]> GetLowStockItemsAsync(int lowCountBound, CancellationToken ct)
     {
-        var lowStockItems = await dbContext.InventoryAuditLog
+        var lowStockItems = await dbContext
+            .Set<InventoryAuditLogDataModel>()
             .Where(e =>
                 e.UpdatedAt ==
-                dbContext.InventoryAuditLog
+                dbContext.Set<InventoryAuditLogDataModel>()
                     .Where(x => x.Code == e.Code)
                     .Max(x => x.UpdatedAt)
                 && e.Quantity < lowCountBound)

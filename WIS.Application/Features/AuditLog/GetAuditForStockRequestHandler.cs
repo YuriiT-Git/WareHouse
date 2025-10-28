@@ -10,6 +10,6 @@ public class GetAuditForStockRequestHandler(IInventoryAuditLogRepository reposit
     
     public async Task<StockUpdatedEvent[]> Handle(GetAuditForStockRequest command, CancellationToken cancellationToken)
     {
-        return await repository.GetAuditLogAsync(command.Code, cancellationToken);
+        return await repository.GetAsync(command.Code, cancellationToken);
     }
 }

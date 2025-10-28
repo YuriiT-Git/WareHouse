@@ -8,6 +8,7 @@ public class InventoryAuditLogDataModelConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<InventoryAuditLogDataModel> builder)
     {
+        builder.ToTable("InventoryAuditLog"); 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Brand).IsRequired().HasMaxLength(20);
         builder.Property(x => x.Model).IsRequired().HasMaxLength(20);
