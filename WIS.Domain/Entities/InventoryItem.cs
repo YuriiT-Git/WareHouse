@@ -8,18 +8,18 @@ public class InventoryItem
 {
     private string? _skuNumber;
     public string SkuNumber => _skuNumber ??= GetSkUNumber();
-    public required ProductType ProductType { get; set; }
-    public required string Brand { get; set; }
-    public required string Model { get; set; }
-    public required ItemSize Size { get; set; }
-    public required string Color { get; set; }
+    public required ProductType ProductType { get; init; }
+    public required string Brand { get; init; }
+    public required string Model { get; init; }
+    public required ItemSize Size { get; init; }
+    public required string Color { get; init; }
 
     public InventoryStock InventoryStock { get; set; } = InventoryStock.Create(0);
 
     private InventoryItem()
     {
     }
-
+    
     public static InventoryItem Create(
         ProductType productType,
         string brand,
@@ -50,7 +50,7 @@ public class InventoryItem
             Model = model,
             Color = color,
             Size = size,
-            InventoryStock = stock??InventoryStock.Create(0)
+            InventoryStock = stock ?? InventoryStock.Create(0)
         };
     }
 
@@ -74,4 +74,6 @@ public class InventoryItem
         return
             $"{ProductType.GetDescriptionAttributeValue()}-{Brand.ToUpper()}-{Model.ToUpper()}-{Size.GetDescriptionAttributeValue()}-{Color.ToUpper()}";
     }
+
+
 }

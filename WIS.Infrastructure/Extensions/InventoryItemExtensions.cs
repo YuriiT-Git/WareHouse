@@ -1,5 +1,6 @@
 ﻿using WIS.Application.DTO;
 using WIS.Domain.Entities;
+using WIS.Domain.Events;
 using WIS.Infrastructure.Entities;
 
 namespace WIS.Infrastructure.Extensions;
@@ -70,6 +71,36 @@ public static class InventoryItemExtensions
             ProductType = inventoryItem.ProductType,
             Size = inventoryItem.Size,
             Count = inventoryItem.InventoryStock!.Quantity
+        };
+    }
+    
+    public static InventoryAuditLogDataModel ToAggregatedData(this StockUpdatedEvent stockUpdatedEvent)
+    {
+        return new InventoryAuditLogDataModel
+        {
+            Brand = stockUpdatedEvent.Brand,
+            Model = stockUpdatedEvent.Model,
+            Code = stockUpdatedEvent.Code,
+            Color = stockUpdatedEvent.Color,
+            ProductType = stockUpdatedEvent.ProductType,
+            Size = stockUpdatedEvent.Size,
+            Quantity = stockUpdatedEvent.Quantity,
+            UpdatedAt = DateTimeOffset.UtcNow
+        };
+    }
+    
+    public static StockUpdatedEvent ToAuditData(this InventoryAuditLogDataModel model)
+    {
+        return new InventoryAuditLogDataModel
+        {
+            Brand = model.Brand,
+            Model = model.Model,
+            Code = model.Code,
+            Color = model.Color,
+            ProductType = model.ProductType,
+            Size = model.Size,
+            Quantity = model.Quantity,
+            UpdatedAt = DateTimeOffset.UtcNow
         };
     }
 }

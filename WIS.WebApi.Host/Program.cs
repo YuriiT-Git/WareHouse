@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using MedistR.Extensions;
 using WarehouseInventorySystem.Midleware;
 using WIS.Application;
+using WIS.Application.Extensions;
 using WIS.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMedistR(typeof(AssemblyIdentifier).Assembly);
-
+builder.Services.AddDomainEvents();
 builder.Services.AddInfrastructure(builder.Configuration);
-
-
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
