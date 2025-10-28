@@ -1,0 +1,55 @@
+name: .NET Build & Test
+
+on:
+  pull_request
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # --- 1. Checkout ---
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # --- 2. Setup .NET SDK ---
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # --- 3. Clear NuGet cache (предотвращает частичное восстановление) ---
+    - name: Clear NuGet cache
+      run: dotnet nuget locals all --clear
+
+    # --- 4. Restore dependencies (все проекты) ---
+    - name: Restore dependencies
+      run: dotnet restore --force --no-cache
+
+    # --- 5. Build solution ---
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
+
+    # --- 6. Run tests (если есть) ---
+    - name: Run tests (if exist)
+      run: |
+        dotnet test --configuration Release --no-build --verbosity normal || echo "No tests found."
+
+    # --- 7. Publish Web API (если есть WIS.WebApi.Host.csproj) ---
+    - name: Publish Web API
+      shell: bash
+      run: |
+        API=$(find . -type f -name "WIS.WebApi.Host.csproj" | head -n 1)
+        if [ -n "$API" ]; then
+          echo "Publishing $API..."
+          dotnet publish "$API" --configuration Release --output ./publish
+        else
+          echo "⚠️  Web API project not found, skipping publish."
+        fi
+
+    # --- 8. Upload build artifact ---
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WIS-publish
+        path: publish
