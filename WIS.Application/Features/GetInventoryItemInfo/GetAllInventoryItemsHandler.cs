@@ -5,11 +5,11 @@ using WIS.Application.DTO;
 namespace WIS.Application.Features.GetInventoryItemInfo;
 
 public class GetAllInventoryItemsHandler(IInventoryItemRepository inventoryItemRepository)
-    : IRequestHandler<GetAllInventoryItemsRequest, IReadOnlyCollection<InventoryItemInfoDto>>
+    : IRequestHandler<GetAllInventoryItemsRequest, IReadOnlyCollection<InventoryItemDto>>
 {
     
-    public async Task<IReadOnlyCollection<InventoryItemInfoDto>> Handle(GetAllInventoryItemsRequest command, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<InventoryItemDto>> Handle(GetAllInventoryItemsRequest command, CancellationToken cancellationToken)
     {
-        return await inventoryItemRepository.GetAllInventoryItemAsync(cancellationToken);
+        return await inventoryItemRepository.GetAllAsync(cancellationToken);
     }
 }

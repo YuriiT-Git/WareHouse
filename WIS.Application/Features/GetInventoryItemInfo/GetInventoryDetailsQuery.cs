@@ -4,7 +4,7 @@ using WIS.Application.DTO;
 
 namespace WIS.Application.Features.GetInventoryItemInfo;
 
-public class GetInventoryDetailsRequest: IRequest<GetInventoryDetailsRequest, InventoryItemInfoDto>
+public class GetInventoryDetailsRequest: IRequest<InventoryItemDto>
 {
     [Required]
     public required string Code { get; init; }

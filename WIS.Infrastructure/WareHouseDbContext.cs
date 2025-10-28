@@ -11,8 +11,7 @@ public class WareHouseDbContext(DbContextOptions<WareHouseDbContext> options) : 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new InventoryItemModelConfiguration());
-        modelBuilder.ApplyConfiguration(new InventoryStockModelConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(InventoryItemModelConfiguration).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

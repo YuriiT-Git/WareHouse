@@ -59,9 +59,9 @@ public static class InventoryItemExtensions
         return inventoryStockModel;
     }
     
-    public static InventoryItemInfoDto ToDto(this InventoryItemModel inventoryItem)
+    public static InventoryItemDto ToDto(this InventoryItemModel inventoryItem)
     {
-        return new InventoryItemInfoDto
+        return new InventoryItemDto
         {
             Brand = inventoryItem.Brand,
             Model = inventoryItem.Model,

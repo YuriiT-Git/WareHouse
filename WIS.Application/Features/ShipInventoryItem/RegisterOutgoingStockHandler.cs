@@ -8,9 +8,8 @@ public class RegisterOutgoingStockHandler(IInventoryItemRepository repository)
 {
     public async Task Handle(RegisterOutgoingStockRequest command, CancellationToken cancellationToken)
     {
-        //TODO: Hand;e exceptions
-        var inventoryItem = await repository.GetInventoryItemAsync(command.Code, cancellationToken);
+        var inventoryItem = await repository.GeAsync(command.Code, cancellationToken);
         inventoryItem.InventoryStock.RegisterOutgoing(command.Quantity);
-        await repository.UpdateInventoryStockDataAsync(inventoryItem, cancellationToken);
+        await repository.UpdateStockDataAsync(inventoryItem, cancellationToken);
     }
 }

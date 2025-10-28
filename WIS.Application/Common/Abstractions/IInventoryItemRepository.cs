@@ -5,9 +5,9 @@ namespace WIS.Application.Common.Abstractions;
 
 public interface IInventoryItemRepository
 {
-    Task AddInventoryItemAsync(InventoryItem item, CancellationToken cancellationToken);
-    Task<InventoryItem> GetInventoryItemAsync(string code, CancellationToken cancellationToken);
-    Task UpdateInventoryStockDataAsync(InventoryItem inventoryItem, CancellationToken cancellationToken);
-    Task<IReadOnlyCollection<InventoryItemInfoDto>> GetAllInventoryItemAsync(CancellationToken cancellationToken);
-    Task<InventoryItemInfoDto> GetInventoryItemExtendedAsync(string code, CancellationToken cancellationToken);
+    Task AddAsync(InventoryItem item, CancellationToken cancellationToken);
+    Task<InventoryItem> GeAsync(string code, CancellationToken cancellationToken);
+    Task UpdateStockDataAsync(InventoryItem inventoryItem, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<InventoryItemDto>> GetAllAsync(CancellationToken cancellationToken);
+    Task<InventoryItemDto> GetInfoAsync(string code, CancellationToken cancellationToken);
 }

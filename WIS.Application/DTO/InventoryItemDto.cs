@@ -2,7 +2,7 @@
 
 namespace WIS.Application.DTO;
 
-public class InventoryItemInfoDto
+public class InventoryItemDto
 {
     public required string Code { get; init; }
     public required ProductType ProductType { get; init; }

@@ -9,7 +9,7 @@ namespace WIS.Infrastructure.Repositories;
 
 public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryItemRepository
 {
-    public async Task AddInventoryItemAsync(InventoryItem item, CancellationToken cancellationToken)
+    public async Task AddAsync(InventoryItem item, CancellationToken cancellationToken)
     {
         
         try
@@ -24,7 +24,7 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
         }
     }
 
-    public async Task<InventoryItem> GetInventoryItemAsync(string code, CancellationToken cancellationToken)
+    public async Task<InventoryItem> GeAsync(string code, CancellationToken cancellationToken)
     {
         var dbEntity = await dbContext
             .InventoryItems.Where(x => x.Code == code)
@@ -41,7 +41,7 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
         return inventoryEntity;
     }
     
-    public async Task<InventoryItemInfoDto> GetInventoryItemExtendedAsync(string code, CancellationToken cancellationToken)
+    public async Task<InventoryItemDto> GetInfoAsync(string code, CancellationToken cancellationToken)
     {
         var dbEntity = await dbContext
             .InventoryItems.Where(x => x.Code == code)
@@ -57,7 +57,7 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
         return dbEntity.ToDto();
     }
 
-    public async Task<IReadOnlyCollection<InventoryItemInfoDto>> GetAllInventoryItemAsync(
+    public async Task<IReadOnlyCollection<InventoryItemDto>> GetAllAsync(
         CancellationToken cancellationToken)
     {
         var dbEntities = await dbContext
@@ -71,7 +71,7 @@ public class InventoryItemRepository(WareHouseDbContext dbContext) : IInventoryI
             .ToList();
     }
 
-    public async Task UpdateInventoryStockDataAsync(InventoryItem inventoryItem, CancellationToken cancellationToken)
+    public async Task UpdateStockDataAsync(InventoryItem inventoryItem, CancellationToken cancellationToken)
     {
         var dbEntity = await dbContext
             .InventoryItems
