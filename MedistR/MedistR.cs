@@ -1,4 +1,5 @@
 ﻿using MedistR.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MedistR;
 
@@ -52,5 +53,17 @@ public class MedistR(IServiceProvider serviceProvider) : IMedistR
         }
         
         return result;
+    }
+    
+    public async Task PublishAsync<TEvent>(TEvent @event, CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(@event);
+        
+        var handlers = serviceProvider.GetServices<IEventHandler<TEvent>>();
+  
+        foreach (var handler in handlers)
+        {
+            await handler.Handle(@event, ct);
+        }
     }
 }

@@ -11,7 +11,8 @@ public static class ServiceCollectionExtensions
         var handlerInterfaces = new[]
         {
             typeof(IRequestHandler<,>),
-            typeof(IRequestHandler<>)
+            typeof(IRequestHandler<>),
+            typeof(IEventHandler<>)
         };
 
         foreach (var assembly in assemblies)
@@ -26,7 +27,7 @@ public static class ServiceCollectionExtensions
                 {
                     if (@interface.IsGenericType && handlerInterfaces.Contains(@interface.GetGenericTypeDefinition()))
                     {
-                        services.AddTransient(@interface, type);
+                        services.AddScoped(@interface, type);
                     }
                 }
             }

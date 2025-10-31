@@ -6,4 +6,5 @@ public interface IMedistR
 
     Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request,
         CancellationToken ct = default);
+    Task PublishAsync<TEvent>(TEvent @event, CancellationToken ct = default);
 }
