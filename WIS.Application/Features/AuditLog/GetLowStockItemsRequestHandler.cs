@@ -5,10 +5,10 @@ using WIS.Domain.Events;
 namespace WIS.Application.Features.AuditLog;
 
 public class GetLowStockItemsRequestHandler(IInventoryAuditLogRepository repository)
-    : IRequestHandler<GetLowStockItemsRequest, StockUpdatedEvent[]>
+    : IRequestHandler<GetLowStockItemsRequest, IReadOnlyCollection<StockUpdatedEvent>>
 {
     
-    public Task<StockUpdatedEvent[]> Handle(GetLowStockItemsRequest command, CancellationToken cancellationToken)
+    public Task<IReadOnlyCollection<StockUpdatedEvent>> Handle(GetLowStockItemsRequest command, CancellationToken cancellationToken)
     {
         return repository.GetLowStockItemsAsync(command.LessThan, cancellationToken);
     }

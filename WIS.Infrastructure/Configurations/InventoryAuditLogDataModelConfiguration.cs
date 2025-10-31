@@ -15,7 +15,7 @@ public class InventoryAuditLogDataModelConfiguration : IEntityTypeConfiguration<
         builder.Property(x => x.Color).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Size).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Code).IsRequired().HasMaxLength(50);
-        builder.HasIndex(x => x.Code);
+        builder.HasIndex(x => x.Code).IsUnique();
         builder.Property(x => x.Quantity).IsRequired().HasDefaultValue(0);
     }
 }

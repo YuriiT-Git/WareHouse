@@ -8,7 +8,7 @@ public class WareHouseDbContext(DbContextOptions<WareHouseDbContext> options) : 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(InventoryItemModelConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(InventoryAuditLogDataModelConfiguration).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

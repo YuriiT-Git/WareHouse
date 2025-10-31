@@ -1,6 +1,5 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using WIS.Application.DTO;
 using WIS.Application.Features.AuditLog;
 using WIS.Domain.Events;
 

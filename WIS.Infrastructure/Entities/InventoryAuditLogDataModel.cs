@@ -4,5 +4,5 @@ namespace WIS.Infrastructure.Entities;
 
 public class InventoryAuditLogDataModel: StockUpdatedEvent
 {
-    public int Id { get; set; }
+    public int Id { get; internal set; }
 }

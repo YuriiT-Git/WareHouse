@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<WareHouseDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("WareHouseDatabase")));
 
-        services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
+        services.AddScoped<IEventStorageRepository, EventStorageRepository>();
         services.AddScoped<IInventoryAuditLogRepository, InventoryAuditLogRepository>();
         
         return services;
