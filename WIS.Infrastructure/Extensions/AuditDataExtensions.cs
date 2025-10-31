@@ -19,19 +19,4 @@ public static class AuditDataExtensions
             UpdatedAt = DateTimeOffset.UtcNow
         };
     }
-
-    public static StockUpdatedEvent ToAuditData(this InventoryAuditLogDataModel model)
-    {
-        return new StockUpdatedEvent
-        {
-            Brand = model.Brand,
-            Model = model.Model,
-            Code = model.Code,
-            Color = model.Color,
-            ProductType = model.ProductType,
-            Size = model.Size,
-            Quantity = model.Quantity,
-            UpdatedAt = DateTimeOffset.UtcNow
-        };
-    }
 }
