@@ -16,7 +16,7 @@ public class InventoryItemCreatedEvent : EventBase, IDomainEvent
     {
         CreatedAt = DateTimeOffset.UtcNow;
     }
-    
+
     public string GetEventData()
     {
         return JsonSerializer.Serialize(this);

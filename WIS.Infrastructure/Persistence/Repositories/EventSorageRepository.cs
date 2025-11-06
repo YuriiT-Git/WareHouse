@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WIS.Application.Common.Common.Abstractions;
+using WIS.Application.Common.Features.GetStockLevelByDateTime;
 using WIS.Domain.Abstractions;
 using WIS.Domain.Entities;
 using WIS.Infrastructure.Persistence.Entities;
 using WIS.Infrastructure.Persistence.Extensions;
-using WIS.Infrastructure.Repositories;
 
 namespace WIS.Infrastructure.Persistence.Repositories;
 
@@ -25,5 +26,16 @@ public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorag
             .ToListAsync(cancellation);
 
         return InventoryItemAggregate.FromHistory(dbEventsPerItem);
+    }
+
+    public async Task<IDomainEvent?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation)
+    {
+        var closest = await dbContext
+            .Set<EventsStorageModel>()
+            .Where(e => e.CreatedAt <= dateTime && e.Code == skuNumber)
+            .OrderByDescending(e => e.CreatedAt)
+            .FirstOrDefaultAsync(cancellation);
+
+        return closest?.ToDomain();
     }
 }

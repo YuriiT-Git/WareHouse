@@ -1,7 +1,7 @@
 ﻿using MedistR.Abstractions;
+using WIS.Application.Common.Common.Abstractions;
 using WIS.Application.Common.EventPublisher;
 using WIS.Domain.Extensions;
-using WIS.Infrastructure.Repositories;
 
 namespace WIS.Application.Common.Features.ReceiveInventoryItem;
 

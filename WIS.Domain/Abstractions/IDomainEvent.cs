@@ -6,4 +6,5 @@ public interface IDomainEvent
     public DateTimeOffset CreatedAt { get; init; }
     public string GetEventData();
     public string GetTypeName(); 
+    public int Quantity { get; init; }
 }

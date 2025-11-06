@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WIS.Application.AuditService.Features.AuditLog;
 using WIS.Domain.Events;
 
+
 namespace WIS.AuditService.Controllers;
 
 [Route("api/stockaudit")]
@@ -34,4 +35,6 @@ public class StockAuditController(IMedistR medistR) : ControllerBase
         var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }
+    
+    
 }

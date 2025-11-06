@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WIS.Application.Common.Common.Abstractions;
 using WIS.Infrastructure.Persistence.Repositories;
-using WIS.Infrastructure.Repositories;
 
 namespace WIS.Infrastructure.Persistence.Extensions;
 
