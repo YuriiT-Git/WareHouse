@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WIS.Application.Common.Abstractions;
+using WIS.Application.Common.Common.Abstractions;
 using WIS.Domain.Events;
 using WIS.Infrastructure.Persistence.Entities;
 using WIS.Infrastructure.Persistence.Extensions;

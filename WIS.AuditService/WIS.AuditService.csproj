@@ -17,9 +17,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MedistR\MedistR.csproj" />
-      <ProjectReference Include="..\WIS.Application\WIS.Application.csproj" />
+      <ProjectReference Include="..\WIS.Application.AuditService\WIS.Application.AuditService.csproj" />
+      <ProjectReference Include="..\WIS.Application.Common\WIS.Application.Common.csproj" />
       <ProjectReference Include="..\WIS.Domain\WIS.Domain.csproj" />
       <ProjectReference Include="..\WIS.Infrastructure\WIS.Infrastructure.csproj" />
+      <ProjectReference Include="..\WIS.Messaging\WIS.Messaging.csproj" />
     </ItemGroup>
 
 </Project>

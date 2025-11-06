@@ -1,9 +1,8 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using WarehouseInventorySystem.Models;
-using WIS.Application.Features.AuditLog;
-using WIS.Application.Features.ReceiveInventoryItem;
-using WIS.Application.Features.ShipInventoryItem;
+using WIS.Application.Common.Features.ReceiveInventoryItem;
+using WIS.Application.Common.Features.ShipInventoryItem;
 using WIS.Domain.Events;
 
 namespace WarehouseInventorySystem.Controllers;
@@ -39,12 +38,5 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
         return Ok();
     }
     
-    [HttpGet("all")]
-    [ProducesResponseType(typeof(List<StockUpdatedEvent>), 200)]
-    public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
-    {
-        var query = new GetAllInventoryItemsRequest();
-        var result = await medistR.SendAsync(query, cancellationToken);
-        return Ok(result);
-    }
+
 }

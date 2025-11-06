@@ -6,11 +6,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Infrastructure", "WIS.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Domain", "WIS.Domain\WIS.Domain.csproj", "{E4EDBEB0-809B-4FA8-9AF6-0F1485F04F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Application", "WIS.Application\WIS.Application.csproj", "{E41A000F-564A-4B71-A7C6-E9ABA0B94012}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Application.Common", "WIS.Application.Common\WIS.Application.Common.csproj", "{E41A000F-564A-4B71-A7C6-E9ABA0B94012}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedistR", "MedistR\MedistR.csproj", "{EBB842A8-BC8A-4B2B-A806-BCBA31E3DF96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.AuditService", "WIS.AuditService\WIS.AuditService.csproj", "{D37F4C2B-8638-42EB-8BAC-59C75484E05E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Messaging", "WIS.Messaging\WIS.Messaging.csproj", "{554D2F90-07F5-4A46-8087-D82C93A1C9ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WIS.Application.AuditService", "WIS.Application.AuditService\WIS.Application.AuditService.csproj", "{36CA01B5-B6F9-46BB-B397-CF49344AC2A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +46,13 @@ Global
 		{D37F4C2B-8638-42EB-8BAC-59C75484E05E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D37F4C2B-8638-42EB-8BAC-59C75484E05E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D37F4C2B-8638-42EB-8BAC-59C75484E05E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554D2F90-07F5-4A46-8087-D82C93A1C9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554D2F90-07F5-4A46-8087-D82C93A1C9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554D2F90-07F5-4A46-8087-D82C93A1C9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554D2F90-07F5-4A46-8087-D82C93A1C9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CA01B5-B6F9-46BB-B397-CF49344AC2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CA01B5-B6F9-46BB-B397-CF49344AC2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CA01B5-B6F9-46BB-B397-CF49344AC2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CA01B5-B6F9-46BB-B397-CF49344AC2A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

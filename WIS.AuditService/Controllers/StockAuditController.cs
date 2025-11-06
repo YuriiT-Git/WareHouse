@@ -1,6 +1,6 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using WIS.Application.Features.AuditLog;
+using WIS.Application.AuditService.Features.AuditLog;
 using WIS.Domain.Events;
 
 namespace WIS.AuditService.Controllers;
@@ -22,6 +22,15 @@ public class StockAuditController(IMedistR medistR) : ControllerBase
     public async Task<IActionResult> GetSmallAmountItems(CancellationToken cancellationToken)
     {
         var query = new GetLowStockItemsRequest();
+        var result = await medistR.SendAsync(query, cancellationToken);
+        return Ok(result);
+    }
+    
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(List<StockUpdatedEvent>), 200)]
+    public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
+    {
+        var query = new GetAllInventoryItemsRequest();
         var result = await medistR.SendAsync(query, cancellationToken);
         return Ok(result);
     }

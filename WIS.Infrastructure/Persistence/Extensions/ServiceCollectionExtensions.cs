@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WIS.Application.Common.Abstractions;
+using WIS.Application.Common.Common.Abstractions;
 using WIS.Infrastructure.Persistence.Repositories;
 using WIS.Infrastructure.Repositories;
 
