@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WIS.Infrastructure.Entities;
+using WIS.Infrastructure.Persistence.Entities;
 
-namespace WIS.Infrastructure.Configurations;
+namespace WIS.Infrastructure.Persistence.Configurations;
 
 public class EventsStorageModelConfiguration : IEntityTypeConfiguration<EventsStorageModel>
 {

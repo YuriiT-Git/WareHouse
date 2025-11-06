@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using MedistR.Extensions;
-using WarehouseInventorySystem.Midleware;
 using WIS.Application;
 using WIS.Application.Extensions;
 using WIS.Infrastructure.Persistence.Extensions;
@@ -21,14 +20,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
-
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,10 +34,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.UseMiddleware<ErrorHandlingMiddleware>();
-if (app.Environment.IsDevelopment())
-{
-    app.Services.ApplyMigrations();
-}
 
-app.Run();
+await app.RunAsync();

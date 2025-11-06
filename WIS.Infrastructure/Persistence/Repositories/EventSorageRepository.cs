@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Domain.Abstractions;
 using WIS.Domain.Entities;
-using WIS.Infrastructure.Entities;
-using WIS.Infrastructure.Extensions;
+using WIS.Infrastructure.Persistence.Entities;
+using WIS.Infrastructure.Persistence.Extensions;
+using WIS.Infrastructure.Repositories;
 
-namespace WIS.Infrastructure.Repositories;
+namespace WIS.Infrastructure.Persistence.Repositories;
 
 public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorageRepository
 {

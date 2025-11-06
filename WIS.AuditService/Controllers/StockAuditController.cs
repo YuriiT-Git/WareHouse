@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WIS.Application.Features.AuditLog;
 using WIS.Domain.Events;
 
-namespace WarehouseInventorySystem.Controllers;
+namespace WIS.AuditService.Controllers;
 
 [Route("api/stockaudit")]
 public class StockAuditController(IMedistR medistR) : ControllerBase

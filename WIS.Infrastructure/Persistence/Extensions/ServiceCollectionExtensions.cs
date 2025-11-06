@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WIS.Application.Common.Abstractions;
+using WIS.Infrastructure.Persistence.Repositories;
 using WIS.Infrastructure.Repositories;
 
-namespace WIS.Infrastructure.Extensions;
+namespace WIS.Infrastructure.Persistence.Extensions;
 
 public static class ServiceCollectionExtensions
 {

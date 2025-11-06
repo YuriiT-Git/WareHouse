@@ -1,6 +1,6 @@
 ﻿using WIS.Domain.Events;
 
-namespace WIS.Infrastructure.Entities;
+namespace WIS.Infrastructure.Persistence.Entities;
 
 public class InventoryAuditLogDataModel: StockUpdatedEvent
 {

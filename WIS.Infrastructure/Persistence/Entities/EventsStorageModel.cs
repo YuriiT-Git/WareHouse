@@ -1,4 +1,4 @@
-﻿namespace WIS.Infrastructure.Entities;
+﻿namespace WIS.Infrastructure.Persistence.Entities;
 
 public class EventsStorageModel
 {

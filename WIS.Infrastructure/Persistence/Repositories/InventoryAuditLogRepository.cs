@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.Common.Abstractions;
 using WIS.Domain.Events;
-using WIS.Infrastructure.Entities;
-using WIS.Infrastructure.Extensions;
+using WIS.Infrastructure.Persistence.Entities;
+using WIS.Infrastructure.Persistence.Extensions;
 
-namespace WIS.Infrastructure.Repositories;
+namespace WIS.Infrastructure.Persistence.Repositories;
 
 public class InventoryAuditLogRepository(WareHouseDbContext dbContext)
     : IInventoryAuditLogRepository

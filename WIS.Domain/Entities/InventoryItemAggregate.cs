@@ -27,26 +27,28 @@ public sealed class InventoryItemAggregate
     
     public void RegisterIncomingStock(int quantity)
     {
-        ThrowIfAggregateIsNotCreated();
-        InventoryStock.RegisterIncoming(quantity);
-        _pendingDomainEvents.Add(new StockAddedEvent
+        var @event = new StockAddedEvent
         {
             CreatedAt = DateTimeOffset.UtcNow,
             SkuNumber = SkuNumber,
             Quantity = quantity
-        });
+        };
+        
+        Apply(@event, false);
+        _pendingDomainEvents.Add(@event);
     }
 
     public void RegisterOutgoingStock(int quantity)
     {
-        ThrowIfAggregateIsNotCreated();
-        InventoryStock.RegisterOutgoing(quantity);
-        _pendingDomainEvents.Add(new StockRemovedEvent
+        var @event = new StockRemovedEvent
         {
             SkuNumber = SkuNumber,
             CreatedAt = DateTimeOffset.UtcNow,
             Quantity = quantity
-        });
+        };
+        
+        Apply(@event, false);
+        _pendingDomainEvents.Add(@event);
     }
 
     public async Task RaiseEventsAsync(Func<IDomainEvent, Task> handler)
@@ -113,7 +115,7 @@ public sealed class InventoryItemAggregate
         }
     }
 
-    private InventoryItemAggregate InitAggregate(InventoryItemCreatedEvent @event, bool hasReadFromDb)
+    private void InitAggregate(InventoryItemCreatedEvent @event, bool hasReadFromDb)
     {
         if (string.IsNullOrEmpty(@event.Brand))
         {
@@ -148,8 +150,6 @@ public sealed class InventoryItemAggregate
             _pendingDomainEvents.Add(@event);
             IsCreated = true;
         }
-
-        return this;
     }
 
     private string GetSkUNumber()
