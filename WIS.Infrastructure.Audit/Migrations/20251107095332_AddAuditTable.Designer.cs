@@ -5,16 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using WIS.Infrastructure;
-using WIS.Infrastructure.Persistence;
+using WIS.Infrastructure.Audit;
 
 #nullable disable
 
-namespace WIS.Infrastructure.Migrations
+namespace WIS.Infrastructure.Audit.Migrations
 {
-    [DbContext(typeof(WareHouseDbContext))]
-    [Migration("20251030160843_AddedEventSourcingTableRemovedRegularEntities")]
-    partial class AddedEventSourcingTableRemovedRegularEntities
+    [DbContext(typeof(AuditDbContext))]
+    [Migration("20251107095332_AddAuditTable")]
+    partial class AddAuditTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,38 +25,7 @@ namespace WIS.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WIS.Infrastructure.Entities.EventsStorageModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("EventType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EventsStorage", (string)null);
-                });
-
-            modelBuilder.Entity("WIS.Infrastructure.Entities.InventoryAuditLogDataModel", b =>
+            modelBuilder.Entity("WIS.Infrastructure.Audit.Entities.InventoryAuditLogDataModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

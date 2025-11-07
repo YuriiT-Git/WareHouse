@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Infrastructure.Persistence.Configurations;
+using WIS.Infrastructure.Persistence.Repositories;
 
 namespace WIS.Infrastructure.Persistence;
 
@@ -8,7 +9,7 @@ public class WareHouseDbContext(DbContextOptions<WareHouseDbContext> options) : 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(InventoryAuditLogDataModelConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStorageRepository).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

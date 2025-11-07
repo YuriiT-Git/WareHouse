@@ -3,7 +3,7 @@ using MedistR.Extensions;
 using WIS.Application.AuditService.Features.AuditLog;
 using WIS.AuditService;
 using WIS.AuditService.Extensions;
-using WIS.Infrastructure.Persistence.Extensions;
+using WIS.Infrastructure.Audit.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMedistR(typeof(GetAllInventoryItemsRequest).Assembly);
-builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddAuditInfrastructure(builder.Configuration);
+
 builder.Services.AddMessaging(builder.Configuration);
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.Common.Common.Abstractions;
 using WIS.Domain.Events;
-using WIS.Infrastructure.Persistence.Entities;
-using WIS.Infrastructure.Persistence.Extensions;
+using WIS.Infrastructure.Audit.Entities;
+using WIS.Infrastructure.Audit.Extensions;
 
-namespace WIS.Infrastructure.Persistence.Repositories;
+namespace WIS.Infrastructure.Audit.Repositories;
 
-public class InventoryAuditLogRepository(WareHouseDbContext dbContext)
+public class InventoryAuditLogRepository(AuditDbContext dbContext)
     : IInventoryAuditLogRepository
 {
     public async Task AddAsync(StockUpdatedEvent stockUpdatedEvent, CancellationToken ct)

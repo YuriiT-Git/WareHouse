@@ -14,7 +14,6 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(configuration.GetConnectionString("WareHouseDatabase")));
 
         services.AddScoped<IEventStorageRepository, EventStorageRepository>();
-        services.AddScoped<IInventoryAuditLogRepository, InventoryAuditLogRepository>();
         
         return services;
     }

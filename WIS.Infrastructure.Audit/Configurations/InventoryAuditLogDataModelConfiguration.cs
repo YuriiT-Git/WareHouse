@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WIS.Infrastructure.Persistence.Entities;
+using WIS.Infrastructure.Audit.Entities;
 
 namespace WIS.Infrastructure.Persistence.Configurations;
 

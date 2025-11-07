@@ -1,7 +1,7 @@
 ﻿using WIS.Domain.Events;
-using WIS.Infrastructure.Persistence.Entities;
+using WIS.Infrastructure.Audit.Entities;
 
-namespace WIS.Infrastructure.Persistence.Extensions;
+namespace WIS.Infrastructure.Audit.Extensions;
 
 public static class AuditDataExtensions
 {
