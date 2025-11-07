@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WarehouseInventorySystem.Models;
+using WIS.Application.Common.Common.DTO;
 using WIS.Application.Common.Features.GetStockLevelByDateTime;
 using WIS.Application.Common.Features.ReceiveInventoryItem;
 using WIS.Application.Common.Features.ShipInventoryItem;
@@ -41,7 +42,7 @@ public class WareHouseController(IMedistR medistR) : ControllerBase
     }
     
     [HttpPost("get-stock-level-at-time")]
-    [ProducesResponseType(typeof(IDomainEvent), 200)]
+    [ProducesResponseType(typeof(InventoryItemDto), 200)]
     public async Task<IActionResult> GetStockStateByDateTime([FromBody] GetStockLevelByDateTimeRequest request, CancellationToken cancellationToken)
     {
         ValidateModelState(ModelState);

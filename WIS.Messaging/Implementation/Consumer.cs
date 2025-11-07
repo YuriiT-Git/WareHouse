@@ -43,7 +43,6 @@ public class Consumer<T>:PulsarBase, IPulsarConsumer<T>, IHostedService where T:
     public new async ValueTask DisposeAsync()
     {
         await _backgroundTask;
-        await _consumer.Unsubscribe();
         await _consumer.DisposeAsync();
         await base.DisposeAsync();
     }

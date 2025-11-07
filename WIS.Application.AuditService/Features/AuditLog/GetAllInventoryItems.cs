@@ -1,8 +1,8 @@
 ﻿using MedistR.Abstractions;
-using WIS.Domain.Events;
+using WIS.Application.AuditService.DTO;
 
 namespace WIS.Application.AuditService.Features.AuditLog;
 
-public class GetAllInventoryItemsRequest: IRequest<IReadOnlyCollection<StockUpdatedEvent>>
+public class GetAllInventoryItemsRequest: IRequest<IReadOnlyCollection<AuditLogDto>>
 {
 }

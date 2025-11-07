@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.AuditService;
-using WIS.Application.Common.Common.Abstractions;
+using WIS.Application.AuditService.DTO;
 using WIS.Domain.Events;
 using WIS.Infrastructure.Audit.Entities;
 using WIS.Infrastructure.Audit.Extensions;
@@ -19,7 +19,7 @@ public class InventoryAuditLogRepository(AuditDbContext dbContext)
 
         if (entity == null)
         {
-            await dbContext.AddAsync(stockUpdatedEvent.ToAggregatedData(), ct);
+            await dbContext.AddAsync(stockUpdatedEvent.ToDbModel(), ct);
         }
         else
         {
@@ -36,29 +36,32 @@ public class InventoryAuditLogRepository(AuditDbContext dbContext)
         await dbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<StockUpdatedEvent> GetAsync(string code, CancellationToken ct)
+    public async Task<AuditLogDto> GetAsync(string code, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(code);
         var result = await dbContext
             .Set<InventoryAuditLogDataModel>()
             .FirstOrDefaultAsync(x => x.Code == code, ct);
-        return result;
+        return result.ToAuditLog();
     }
 
-    public async Task<IReadOnlyCollection<StockUpdatedEvent>> GetLowStockItemsAsync(int lowCountBound,
+    public async Task<IReadOnlyCollection<AuditLogDto>> GetLowStockItemsAsync(int lowCountBound,
         CancellationToken ct)
     {
         var lowStockItems = await dbContext
             .Set<InventoryAuditLogDataModel>()
             .Where(e => e.Quantity < lowCountBound)
             .ToArrayAsync(ct);
-        return lowStockItems;
+        return lowStockItems.Select(x => x.ToAuditLog()).ToArray();
     }
 
-    public async Task<IReadOnlyCollection<StockUpdatedEvent>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<AuditLogDto>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await dbContext
+        var allItems = await dbContext
             .Set<InventoryAuditLogDataModel>()
             .ToArrayAsync(cancellationToken);
+        var result = allItems.Select(x => x.ToAuditLog());
+
+        return result.ToArray();
     }
 }

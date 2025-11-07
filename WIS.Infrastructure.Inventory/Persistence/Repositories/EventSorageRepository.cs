@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.Common.Common.Abstractions;
+using WIS.Application.Common.Common.DTO;
 using WIS.Application.Common.Features.GetStockLevelByDateTime;
 using WIS.Domain.Abstractions;
 using WIS.Domain.Entities;
@@ -28,7 +29,7 @@ public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorag
         return InventoryItemAggregate.FromHistory(dbEventsPerItem);
     }
 
-    public async Task<IDomainEvent?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation)
+    public async Task<InventoryItemDto?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation)
     {
         var closest = await dbContext
             .Set<EventsStorageModel>()
@@ -36,6 +37,6 @@ public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorag
             .OrderByDescending(e => e.CreatedAt)
             .FirstOrDefaultAsync(cancellation);
 
-        return closest?.ToDomain();
+        return closest?.ToInventoryItem();
     }
 }

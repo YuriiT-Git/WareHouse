@@ -1,4 +1,4 @@
-﻿using WIS.Application.Common.Features.GetStockLevelByDateTime;
+﻿using WIS.Application.Common.Common.DTO;
 using WIS.Domain.Abstractions;
 using WIS.Domain.Entities;
 
@@ -8,5 +8,5 @@ public interface IEventStorageRepository
 {
     Task AddAsync(IDomainEvent @event, CancellationToken cancellation);
     Task<InventoryItemAggregate> GetAsync(string skuNumber, CancellationToken cancellation);
-    Task<IDomainEvent?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation);
+    Task<InventoryItemDto?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation);
 }

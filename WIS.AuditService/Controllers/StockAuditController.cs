@@ -1,7 +1,7 @@
 ﻿using MedistR.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using WIS.Application.AuditService.DTO;
 using WIS.Application.AuditService.Features.AuditLog;
-using WIS.Domain.Events;
 
 
 namespace WIS.AuditService.Controllers;
@@ -10,7 +10,7 @@ namespace WIS.AuditService.Controllers;
 public class StockAuditController(IMedistR medistR) : ControllerBase
 {
     [HttpGet("details/{code}")]
-    [ProducesResponseType(typeof(StockUpdatedEvent[]), 200)]
+    [ProducesResponseType(typeof(AuditLogDto[]), 200)]
     public async Task<IActionResult> GetInventoryItemDetails(string code, CancellationToken cancellationToken)
     {
         var query = new GetAuditForStockRequest { Code = code };
@@ -19,7 +19,7 @@ public class StockAuditController(IMedistR medistR) : ControllerBase
     }
     
     [HttpGet("get-low-stock-items")]
-    [ProducesResponseType(typeof(StockUpdatedEvent[]), 200)]
+    [ProducesResponseType(typeof(AuditLogDto[]), 200)]
     public async Task<IActionResult> GetSmallAmountItems(CancellationToken cancellationToken)
     {
         var query = new GetLowStockItemsRequest();
@@ -28,7 +28,7 @@ public class StockAuditController(IMedistR medistR) : ControllerBase
     }
     
     [HttpGet("all")]
-    [ProducesResponseType(typeof(List<StockUpdatedEvent>), 200)]
+    [ProducesResponseType(typeof(List<AuditLogDto>), 200)]
     public async Task<IActionResult> GetStocksList(CancellationToken cancellationToken)
     {
         var query = new GetAllInventoryItemsRequest();
