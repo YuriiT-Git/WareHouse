@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WIS.Application.AuditService;
 using WIS.Application.Common.Common.Abstractions;
 using WIS.Infrastructure.Audit.Repositories;
 

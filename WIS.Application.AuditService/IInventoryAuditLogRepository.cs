@@ -1,6 +1,6 @@
 ﻿using WIS.Domain.Events;
 
-namespace WIS.Application.Common.Common.Abstractions;
+namespace WIS.Application.AuditService;
 
 public interface IInventoryAuditLogRepository
 {

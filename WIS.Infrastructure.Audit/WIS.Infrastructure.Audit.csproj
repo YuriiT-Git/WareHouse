@@ -14,7 +14,7 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\WIS.Application.Common\WIS.Application.Common.csproj" />
+      <ProjectReference Include="..\WIS.Application.AuditService\WIS.Application.AuditService.csproj" />
       <ProjectReference Include="..\WIS.Domain\WIS.Domain.csproj" />
     </ItemGroup>
 

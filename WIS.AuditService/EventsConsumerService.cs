@@ -1,4 +1,5 @@
-﻿using WIS.Application.Common.Common.Abstractions;
+﻿using WIS.Application.AuditService;
+using WIS.Application.Common.Common.Abstractions;
 using WIS.Domain.Events;
 using WIS.Messaging.Abstractions;
 
