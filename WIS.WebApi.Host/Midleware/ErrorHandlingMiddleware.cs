@@ -5,6 +5,12 @@ namespace WarehouseInventorySystem.Midleware;
 
 public class ErrorHandlingMiddleware : IMiddleware
 {
+    private readonly ILogger<ErrorHandlingMiddleware> _logger;
+
+    public ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger)
+    {
+        _logger = logger;
+    }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -13,7 +19,6 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (Exception ex)
         {
-            
             var problem = new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
@@ -31,7 +36,7 @@ public class ErrorHandlingMiddleware : IMiddleware
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = false
             });
-
+            _logger.LogError("Error {@e}", ex);
             await context.Response.WriteAsync(json);
         }
     }

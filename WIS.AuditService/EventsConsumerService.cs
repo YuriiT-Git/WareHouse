@@ -7,7 +7,8 @@ namespace WIS.AuditService;
 
 public class EventsConsumerService(
     IPulsarConsumer<StockUpdatedEvent> consumer,
-    IServiceScopeFactory scopeFactory)
+    IServiceScopeFactory scopeFactory,
+    ILogger<EventsConsumerService> logger)
     : IHostedService, IAsyncDisposable
 {
     private CancellationTokenSource _cts;
@@ -21,10 +22,17 @@ public class EventsConsumerService(
 
     private async Task OnMessage(StockUpdatedEvent obj)
     {
-        var token = _cts?.Token ?? CancellationToken.None;
-        await using var scope = scopeFactory.CreateAsyncScope();
-        var repository = scope.ServiceProvider.GetRequiredService<IInventoryAuditLogRepository>();
-        await repository.AddAsync(obj, token);
+        try
+        {
+            var token = _cts?.Token ?? CancellationToken.None;
+            await using var scope = scopeFactory.CreateAsyncScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IInventoryAuditLogRepository>();
+            await repository.AddAsync(obj, token);
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Error in OnMessage: {@e}", e);
+        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
