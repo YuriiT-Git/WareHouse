@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using MedistR.Extensions;
+using Serilog;
 using WarehouseInventorySystem.Extensions;
 using WarehouseInventorySystem.Midleware;
 using WIS.Application.Common;
@@ -22,6 +23,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Host.UseSerilog((ctx, cfg) =>
+    cfg.ReadFrom.Configuration(ctx.Configuration)
+        .WriteTo.Console());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

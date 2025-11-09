@@ -154,6 +154,21 @@ public sealed class InventoryItemAggregate
 
     private string GetSkUNumber()
     {
+        if (string.IsNullOrEmpty(Brand))
+        {
+            throw new InvalidBrandException("Brand cannot be empty");
+        }
+        
+        if (string.IsNullOrEmpty(Model))
+        {
+            throw new InvalidModelException("Model cannot be empty");
+        }
+        
+        if (string.IsNullOrEmpty(Color))
+        {
+            throw new InvalidColorException("Color cannot be empty");
+        }
+        
         return
             $"{ProductType.GetDescriptionAttributeValue()}-{Brand.ToUpper()}-{Model.ToUpper()}-{Size.GetDescriptionAttributeValue()}-{Color.ToUpper()}";
     }

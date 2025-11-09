@@ -23,6 +23,7 @@ public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorag
         var dbEventsPerItem = await dbContext
             .Set<EventsStorageModel>()
             .Where(x => x.Code == skuNumber)
+            .OrderBy(x=>x.Id)
             .Select(x=>x.ToDomain())
             .ToListAsync(cancellation);
 
