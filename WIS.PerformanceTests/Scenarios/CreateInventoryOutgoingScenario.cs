@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using AutoFixture;
+using DotPulsar.Abstractions;
 using NBomber.Contracts;
 using NBomber.CSharp;
 using WarehouseInventorySystem.Models;
@@ -10,14 +11,27 @@ namespace WIS.PerformanceTests.Scenarios;
 
 public static class CreateInventoryOutgoingScenario
 {
-    public static ScenarioProps Create()
+    public static async Task<ScenarioProps> CreateAsync()
     {
         var httpClient = HttpClientBuilder.Create(new Uri("http://localhost:5177"));
 
-        var preparationTask = CreateInventoryContext.Create();
-        Task.WaitAll(preparationTask);
+        List<string> inventoryIds = new();
+        
+        await foreach (var item in CreateInventoryContext.CreateAsync())
+        {
+            var command = new RegisterIncomingStockRequest
+            {
+                Code = item,
+                Quantity = 100
+            };
 
-        List<string> inventoryIds = preparationTask.Result.ToList();
+            var response = await httpClient.PostAsJsonAsync("/api/warehouse/register-incoming-stock", command);
+
+            if (response.IsSuccessStatusCode)
+            {
+                inventoryIds.Add(item);
+            }
+        }
 
         var scenario = Scenario.Create("register-outgoing-stock", async context =>
             {
@@ -26,13 +40,13 @@ public static class CreateInventoryOutgoingScenario
                 var command = new RegisterOutgoingStockModel
                 {
                     Code = id,
-                    Quantity = 10
+                    Quantity = 2
                 };
-
+                
                 var response = await httpClient.PostAsJsonAsync(
                     "/api/warehouse/register-outgoing-stock",
                     command);
-
+                
                 if (response.IsSuccessStatusCode)
                 {
                     return Response.Ok();
@@ -40,11 +54,9 @@ public static class CreateInventoryOutgoingScenario
                 
                 var body = await response.Content.ReadAsStringAsync();
                 return Response.Fail(statusCode: response.StatusCode.ToString(), message: body);
-            })
-            .WithLoadSimulations(Simulation.Inject(
-                rate: 10,
-                interval: TimeSpan.FromSeconds(1),
-                during: TimeSpan.FromSeconds(30)));
-        return scenario;
+            }
+            ).WithLoadSimulations(LoadSimulationContext.Rate100);
+
+            return scenario;
+        }
     }
-}

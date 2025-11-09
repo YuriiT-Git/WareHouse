@@ -5,13 +5,13 @@ namespace WIS.PerformanceTests;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         NBomberRunner
             .RegisterScenarios(
                 CreateInventoryScenario.Create(),
-                CreateInventoryIncomingScenario.Create(),
-                CreateInventoryOutgoingScenario.Create())
+                await CreateInventoryIncomingScenario.CreateAsync(),
+                await CreateInventoryOutgoingScenario.CreateAsync())
             .Run();
     }
 }

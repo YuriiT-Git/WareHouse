@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using MedistR.Extensions;
+using Serilog;
 using WIS.Application.AuditService.Features.AuditLog;
 using WIS.AuditService;
 using WIS.AuditService.Extensions;
@@ -24,6 +25,10 @@ builder.Services.AddHostedService<EventsConsumerService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Host.UseSerilog((ctx, cfg) =>
+    cfg.ReadFrom.Configuration(ctx.Configuration)
+        .WriteTo.Console());
 
 var app = builder.Build();
 

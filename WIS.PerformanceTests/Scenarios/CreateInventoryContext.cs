@@ -7,13 +7,12 @@ namespace WIS.PerformanceTests.Scenarios;
 
 public static class CreateInventoryContext
 {
-    public static async Task<IEnumerable<string>> Create()
+    public static async IAsyncEnumerable<string> CreateAsync()
     {
         Console.WriteLine("Preparing test data...");
         var httpClient = HttpClientBuilder.Create(new Uri("http://localhost:5177"));
         var fixture = new Fixture();
-        var ids = new List<string>();
-
+        
         for (int i = 0; i < 10; i++)
         {
             var createInventoryItemCommand = fixture.Build<CreateInventoryItemCommand>()
@@ -27,12 +26,8 @@ public static class CreateInventoryContext
 
             if (response.IsSuccessStatusCode)
             {
-                var id = await response.Content.ReadAsStringAsync();
-                ids.Add(id);
+                yield  return await response.Content.ReadAsStringAsync();
             }
         }
-        
-        Console.WriteLine($"Created {ids.Count} inventory items for load test.");
-        return ids;
     }
 }

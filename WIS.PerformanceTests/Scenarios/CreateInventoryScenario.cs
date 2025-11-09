@@ -26,10 +26,7 @@ public static class CreateInventoryScenario
                     ? Response.Ok()
                     : Response.Fail(response, response.StatusCode.ToString());
             })
-            .WithLoadSimulations(Simulation.Inject(
-                rate: 10,
-                interval: TimeSpan.FromSeconds(1),
-                during: TimeSpan.FromSeconds(30)));
+            .WithLoadSimulations(LoadSimulationContext.Rate100);
 
         return scenario;
     }

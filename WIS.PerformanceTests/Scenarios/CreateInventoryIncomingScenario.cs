@@ -4,19 +4,17 @@ using NBomber.Contracts;
 using NBomber.CSharp;
 using WIS.Application.Common.Features.CreateInventoryItem;
 using WIS.Application.Common.Features.ReceiveInventoryItem;
+using WIS.PerformanceTests.Extensions;
 
 namespace WIS.PerformanceTests.Scenarios;
 
 public static class CreateInventoryIncomingScenario
 {
-    public static ScenarioProps Create()
+    public static async Task<ScenarioProps> CreateAsync()
     {
         var httpClient = HttpClientBuilder.Create(new Uri("http://localhost:5177"));
 
-        var preparationTask = CreateInventoryContext.Create();
-        Task.WaitAll(preparationTask);
-
-        List<string> inventoryIds = preparationTask.Result.ToList();
+        var inventoryIds = await CreateInventoryContext.CreateAsync().ToListAsync();
 
         var scenario = Scenario.Create("register-incoming-stock", async context =>
             {
@@ -40,10 +38,7 @@ public static class CreateInventoryIncomingScenario
                 var body = await response.Content.ReadAsStringAsync();
                 return Response.Fail(statusCode: response.StatusCode.ToString(), message: body);
             })
-            .WithLoadSimulations(Simulation.Inject(
-                rate: 10,
-                interval: TimeSpan.FromSeconds(1),
-                during: TimeSpan.FromSeconds(30)));
+            .WithLoadSimulations(LoadSimulationContext.Rate100);
         return scenario;
     }
 }
