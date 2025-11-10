@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WIS.Application.Common.Common.Abstractions;
-using WIS.Application.Common.Common.DTO;
-using WIS.Application.Common.Features.GetStockLevelByDateTime;
 using WIS.Domain.Abstractions;
 using WIS.Domain.Entities;
 using WIS.Infrastructure.Persistence.Entities;
@@ -23,20 +21,22 @@ public class EventStorageRepository(WareHouseDbContext dbContext) : IEventStorag
         var dbEventsPerItem = await dbContext
             .Set<EventsStorageModel>()
             .Where(x => x.Code == skuNumber)
-            .Select(x=>x.ToDomain())
+            .Select(x => x.ToDomain())
             .ToListAsync(cancellation);
 
         return InventoryItemAggregate.FromHistory(dbEventsPerItem);
     }
 
-    public async Task<InventoryItemDto?> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation)
+    public async Task<InventoryItemAggregate> GetByDateTimeAsync(string skuNumber, DateTimeOffset dateTime, CancellationToken cancellation)
     {
-        var closest = await dbContext
+        var items = await dbContext
             .Set<EventsStorageModel>()
             .Where(e => e.CreatedAt <= dateTime && e.Code == skuNumber)
-            .OrderByDescending(e => e.CreatedAt)
-            .FirstOrDefaultAsync(cancellation);
+            .OrderBy(e => e.Id)
+            .Select(x => x.ToDomain())
+            .ToListAsync(cancellation);
+            
 
-        return closest?.ToInventoryItem();
+        return InventoryItemAggregate.FromHistory(items);
     }
 }
