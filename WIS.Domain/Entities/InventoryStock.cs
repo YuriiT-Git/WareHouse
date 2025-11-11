@@ -1,9 +1,7 @@
 ﻿
-using WIS.Domain.Events;
-
 namespace WIS.Domain.Entities;
 
-public class InventoryStock 
+public sealed class InventoryStock 
 {
     public int Quantity { get; private set; }
     

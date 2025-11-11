@@ -4,12 +4,12 @@ namespace WIS.Domain.Events;
 
 public class StockUpdatedEvent
 {
-    public required string Code { get; init; }
-    public required ProductType ProductType { get; init; }
-    public required string Brand { get; init; }
-    public required string Model { get; init; }
-    public required ItemSize Size { get; init; }
-    public required string Color { get; init; }
-    public required int Quantity { get; init; }
-    public required DateTimeOffset UpdatedAt { get; init; }
+    public required string Code { get; set; }
+    public required ProductType ProductType { get; set; }
+    public required string Brand { get; set; }
+    public required string Model { get; set; }
+    public required ItemSize Size { get; set; }
+    public required string Color { get; set; }
+    public required int Quantity { get; set; }
+    public required DateTimeOffset UpdatedAt { get; set; }
 }

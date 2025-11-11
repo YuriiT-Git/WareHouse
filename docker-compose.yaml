@@ -22,8 +22,26 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-
-  
+      
+  pulsar-standalone:
+    image: apachepulsar/pulsar:latest
+    container_name: pulsar-standalone
+    ports:
+      - "6650:6650"
+      - "8085:8085"
+    networks:
+      - warehousenetwork
+    volumes:
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+    command: sh -c "bin/pulsar standalone & \
+      sleep 15 && \
+      bin/pulsar-admin tenants create wis && \
+      bin/pulsar-admin namespaces create wis/inventory  && \
+      tail -f /dev/null"
 
 volumes:
   postgres-data:
+  pulsardata:
+  pulsarconf:
+

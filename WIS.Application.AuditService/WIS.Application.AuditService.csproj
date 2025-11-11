@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MedistR\MedistR.csproj" />
+      <ProjectReference Include="..\WIS.Application.Common\WIS.Application.Common.csproj" />
+      <ProjectReference Include="..\WIS.Domain\WIS.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

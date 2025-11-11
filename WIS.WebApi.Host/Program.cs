@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
 using MedistR.Extensions;
+using WarehouseInventorySystem.Extensions;
 using WarehouseInventorySystem.Midleware;
-using WIS.Application;
-using WIS.Application.Extensions;
-using WIS.Infrastructure.Extensions;
+using WIS.Application.Common;
+using WIS.Application.Common.Extensions;
+using WIS.Infrastructure.Persistence.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMedistR(typeof(AssemblyIdentifier).Assembly);
 builder.Services.AddDomainEvents();
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddMessaging(builder.Configuration);
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -42,4 +44,4 @@ if (app.Environment.IsDevelopment())
     app.Services.ApplyMigrations();
 }
 
-app.Run();
+await app.RunAsync();
